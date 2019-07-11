@@ -1,0 +1,62 @@
+[
+    {
+        "valueType": "string",
+        "dataType": "string",
+        "name": "id",
+        "width": "100%",
+        "caption": "ID",
+        "readOnly": false,
+        "id": "id",
+        "editorType": "TextEditor"
+    },
+    {
+        "valueType": "string",
+        "dataType": "string",
+        "name": "constrained",
+        "width": "100%",
+        "caption": "是否受控",
+        "readOnly": false,
+        "id": "constrained",
+        "editorType": "DropDownEditor"
+    },
+    {
+        "valueType": "string",
+        "dataType": "string",
+        "name": "resTypeName",
+        "width": "100%",
+        "caption": "资源类型名称",
+        "readOnly": false,
+        "id": "resTypeName",
+        "editorType": "TextEditor"
+    },
+    {
+        "valueType": "string",
+        "dataType": "string",
+        "name": "extPropsFlag",
+        "width": "100%",
+        "caption": "具有扩展属性",
+        "readOnly": false,
+        "id": "extPropsFlag",
+        "editorType": "DropDownEditor"
+    },
+    {
+        "valueType": "string",
+        "dataType": "string",
+        "name": "typeCode",
+        "width": "100%",
+        "caption": "资源编码",
+        "readOnly": false,
+        "id": "typeCode",
+        "editorType": "TextEditor"
+    },
+    {
+        "valueType": "string",
+        "dataType": "string",
+        "name": "remark",
+        "width": "100%",
+        "caption": "备注信息",
+        "readOnly": false,
+        "id": "remark",
+        "editorType": "TextEditor"
+    }
+]

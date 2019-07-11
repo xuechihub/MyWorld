@@ -1,0 +1,16 @@
+@import './theme/index.css';
+@import './element-variables.css';
+@import '../font/iconfont/iconfont.css';
+@import '../font/webfont/webfont.css';
+
+.el-button [class*='iconfont icon-']+span {
+    margin-left: 5px;
+}
+
+.el-table__empty-text{
+    font-size: 16px;
+}
+
+.el-tree .is-current > .el-tree-node__content{
+    background-color: #f5f7fa;
+}

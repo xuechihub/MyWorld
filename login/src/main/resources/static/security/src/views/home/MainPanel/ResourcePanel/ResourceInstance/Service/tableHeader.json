@@ -1,0 +1,52 @@
+[
+    {
+        "valueType": "string",
+        "dataType": "string",
+        "name": "id",
+        "width": "100%",
+        "caption": "ID",
+        "readOnly": false,
+        "id": "id",
+        "editorType": "TextEditor"
+    },
+    {
+        "valueType": "string",
+        "dataType": "string",
+        "name": "resInstName",
+        "width": "100%",
+        "caption": "资源名称",
+        "readOnly": false,
+        "id": "resInstName",
+        "editorType": "TextEditor"
+    },
+    {
+        "valueType": "string",
+        "dataType": "string",
+        "name": "resType",
+        "width": "100%",
+        "caption": "资源类型",
+        "readOnly": false,
+        "id": "resType",
+        "editorType": "TextEditor"
+    },
+    {
+        "valueType": "string",
+        "dataType": "string",
+        "name": "code",
+        "width": "100%",
+        "caption": "资源编码",
+        "readOnly": false,
+        "id": "code",
+        "editorType": "TextEditor"
+    },
+    {
+        "valueType": "string",
+        "dataType": "string",
+        "name": "remark",
+        "width": "100%",
+        "caption": "备注",
+        "readOnly": false,
+        "id": "remark",
+        "editorType": "TextEditor"
+    }
+]

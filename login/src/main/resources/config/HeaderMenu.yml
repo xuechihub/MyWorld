@@ -1,0 +1,26 @@
+security:
+  id: security
+  name: 安全管理
+  type: string
+  item:
+    user:
+        id: user
+        name: 用户
+        type: string
+    userGroup:
+        id: userGroup
+        name: 用户组
+        type: string
+systemSetting:
+  id: systemSetting
+  name: 系统设置
+  type: list
+  item:
+    enum:
+        id: enum
+        name: 枚举管理
+        type: string
+    i18n:
+        id: i18n
+        name: 国际化
+        type: string

@@ -1,0 +1,56 @@
+[
+    {
+        "valueType": "number",
+        "dataType": "string",
+        "name": "displayOrder",
+        "width": "100%",
+        "caption": "序号",
+        "readOnly": false,
+        "id": "displayOrder",
+        "editorType": "NumberEditor",
+        "nullable": false
+    },
+    {
+        "valueType": "string",
+        "dataType": "string",
+        "name": "propNameEng",
+        "width": "100%",
+        "caption": "属性英文名",
+        "readOnly": false,
+        "id": "propNameEng",
+        "editorType": "TextEditor",
+        "nullable": false
+    },
+    {
+        "valueType": "string",
+        "dataType": "string",
+        "name": "propNameChn",
+        "width": "100%",
+        "caption": "属性中文名",
+        "readOnly": false,
+        "id": "propNameChn",
+        "editorType": "TextEditor",
+        "nullable": false
+    },
+    {
+        "valueType": "string",
+        "dataType": "number",
+        "name": "dataType",
+        "width": "100%",
+        "caption": "数据类型",
+        "readOnly": false,
+        "id": "dataType",
+        "editorType": "DropDownEditor",
+        "nullable": false
+    },
+    {
+        "valueType": "string",
+        "dataType": "string",
+        "name": "remark",
+        "width": "100%",
+        "caption": "备注",
+        "readOnly": false,
+        "id": "remark",
+        "editorType": "TextEditor"
+    }
+]

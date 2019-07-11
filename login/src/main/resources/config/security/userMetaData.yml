@@ -1,0 +1,33 @@
+metaData:
+  header:
+  - {id: userName, caption: 用户名, regExp: '^[\u4e00-\u9fa5_a-zA-Z0-9]{2,32}$', regExpTip: 长度为2-32位，只能输入中文，英文字母和数字及特殊字符'_',
+     dataType: string, editable: true, showable: true, searchable: true, nullable: false}
+  - {id: organization, caption: 所属组织, dataType: object, editable: true, showable: true,
+     searchable: true, nullable: true}
+  - id: userType
+    caption: 用户类型
+    dataType: enum
+    options:
+    - {label: 管理员, value: 1}
+    - {label: 普通用户, value: 2}
+    editable: true
+    showable: true
+    searchable: true
+    nullable: false
+  - {id: password, caption: 密码, dataType: password, regExp: '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*_+~(){},./|:\?\[\]''+-]).{6,20}$',
+     regExpTip: 长度为6-20位，必须包含数字、小写字母、大写字母、特殊字符, showable: false, searchable: false,
+     nullable: false, editable: isEdit}
+  - {id: confirmPassword, caption: 确认密码, dataType: password, regExp: '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*_+~(){},./|:\?\[\]''+-]).{6,20}$',
+     regExpTip: 长度为6-20位，必须包含数字、小写字母、大写字母、特殊字符, showable: false, searchable: false,
+     nullable: false, editable: isEdit}
+  - {id: lastVisit, caption: 最后访问时间, editable: false, dataType: time, showable: true,
+     searchable: false, nullable: true}
+  - {id: lastIp, caption: 最后访问IP, editable: false, dataType: ip, showable: true, searchable: false,
+     nullable: true}
+  - {id: remark, caption: 备注, editable: true, dataType: string, showable: true, searchable: false,
+     nullable: true}
+  buttonList:
+  - {id: Plus, icon: plus, text: 新建}
+  - {id: Edit, icon: edit, text: 编辑}
+  - {id: Delete, icon: delete, text: 删除}
+  - {id: ResetPwd, icon: key, text: 重置密码}
