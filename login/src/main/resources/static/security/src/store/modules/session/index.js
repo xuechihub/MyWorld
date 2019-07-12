@@ -27,6 +27,7 @@ const session = {
             })
                 .then((response) => {
                     commit(types.LOAD_MENU_SUCCESS, response);
+                    return Promise.resolve(response);
                 })
                 .catch((error) => {
                     commit(types.LOAD_MENU_FAILURE, error);

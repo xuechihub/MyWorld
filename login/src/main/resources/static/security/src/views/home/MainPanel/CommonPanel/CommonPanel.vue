@@ -8,7 +8,7 @@
         },
         computed: {
             item: function () {
-                let target = this.$store.getters.headerMenu.menu[this.$route.params.commonId];
+                let target = this.$store.getters.headerMenu.menu[this.$route.meta.commonId];
                 return target && target.type === 'string' ? target.item : {};
             }
         },

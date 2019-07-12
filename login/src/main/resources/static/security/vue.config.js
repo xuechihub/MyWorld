@@ -22,20 +22,20 @@ module.exports = {
     },
     // webpack 链接 API，用于生成和修改 webapck 配置
     // https://github.com/mozilla-neutrino/webpack-chain
-    chainWebpack: (config) => {
-        // 因为是多页面，所以取消 chunks，每个页面只对应一个单独的 JS / CSS
-        config.optimization
-            .splitChunks({
-                cacheGroups: {}
-            });
-
-        // 'src/lib' 目录下为外部库文件，不参与 eslint 检测
-        config.module
-            .rule('eslint')
-            .exclude
-            .add('/Users/maybexia/Downloads/FE/community_built-in/src/lib')
-            .end();
-    },
+    // chainWebpack: (config) => {
+    //     // 因为是多页面，所以取消 chunks，每个页面只对应一个单独的 JS / CSS
+    //     config.optimization
+    //         .splitChunks({
+    //             cacheGroups: {}
+    //         });
+    //
+    //     // 'src/lib' 目录下为外部库文件，不参与 eslint 检测
+    //     config.module
+    //         .rule('eslint')
+    //         .exclude
+    //         .add('/Users/maybexia/Downloads/FE/community_built-in/src/lib')
+    //         .end();
+    // },
     // 配置高于chainWebpack中关于 css loader 的配置
     css: {
         // 是否开启支持 foo.module.css 样式
@@ -64,7 +64,8 @@ module.exports = {
         hotOnly: false,
         proxy: {
             '/rest': {
-                target: ' https://www.easy-mock.com/mock/5d11dd8e582d0b22ac572106/security', // 接口的域名
+                // target: ' https://www.easy-mock.com/mock/5d11dd8e582d0b22ac572106/security', // 接口的域名
+                target: ' http://127.0.0.1:8888', // 接口的域名
                 // secure: false, // 如果是https接口，需要配置这个参数
                 changeOrigin: true // 如果接口跨域，需要进行这个参数配置
                 // pathRewrite: {
@@ -73,7 +74,9 @@ module.exports = {
             }
         },
         before: app => {
-        }
+        },
+        allowedHosts: [
+        ]
     },
     // 构建时开启多进程处理 babel 编译
     parallel: require('os').cpus().length > 1,

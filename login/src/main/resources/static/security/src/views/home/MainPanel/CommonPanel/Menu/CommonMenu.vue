@@ -12,13 +12,13 @@
             let keys = Object.keys(this.$props.item);
             return (
                 <el-menu
-                    default-active={`/${this.$route.params.commonId}/${this.$route.params.objId}`}
+                    default-active={`/${this.$route.meta.commonId}/${this.$route.meta.objId}`}
                     class="el-menu-vertical-demo"
                     router
                 >
                     {
                         keys.map((key) => {
-                            return <el-menu-item index={`/${this.$route.params.commonId}/${this.$props.item[key].id}`}>
+                            return <el-menu-item index={`/${this.$route.meta.commonId}/${this.$props.item[key].id}`}>
                                 <i class={`iconfont icon-${this.$props.item[key].id}`}></i>
                                 <span slot="title">{this.$props.item[key].name}</span>
                             </el-menu-item>;

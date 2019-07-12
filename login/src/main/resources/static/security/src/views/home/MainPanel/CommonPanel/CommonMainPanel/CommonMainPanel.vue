@@ -39,7 +39,7 @@
                 return _.filter(searchs, { searchable: true });
             },
             tableId: function () {
-                return this.$route.params.objId;
+                return this.$route.meta.objId;
             },
             tableData: function () {
                 return this.$store.state.commonModule.tablesData[this.tableId] || {};
@@ -74,13 +74,13 @@
                 return this.$store.dispatch('deleteCommonData', info);
             },
             handlePlus: function (e) {
-                this.$router.push({ path: `/${this.$route.params.commonId}/${this.$route.params.objId}/add` });
+                this.$router.push({ path: `/${this.$route.meta.commonId}/${this.$route.meta.objId}/add` });
             },
             handleEdit: function (e, scope) {
                 if (this.$refs.commonTable.selection.length === 1) {
-                    this.$router.push({ path: `/${this.$route.params.commonId}/${this.$route.params.objId}/edit/${this.$refs.commonTable.selection[0].id}` });
+                    this.$router.push({ path: `/${this.$route.meta.commonId}/${this.$route.meta.objId}/edit/${this.$refs.commonTable.selection[0].id}` });
                 } else if (scope) {
-                    this.$router.push({ path: `/${this.$route.params.commonId}/${this.$route.params.objId}/edit/${scope.row.id}` });
+                    this.$router.push({ path: `/${this.$route.meta.commonId}/${this.$route.meta.objId}/edit/${scope.row.id}` });
                 } else {
                     this.$message({
                         showClose: true,

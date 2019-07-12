@@ -17,43 +17,75 @@ const router = new Router({
             component: () => import('../views/login/index')
         },
         {
-            path: '/',
-            name: 'home',
-            component: () => import('../views/home/Home'),
-            children: [
-                {
-                    path: ':commonId',
-                    name: 'commonId',
-                    component: CommonPanel,
-                    children: [
-                        {
-                            path: ':objId',
-                            name: 'objId',
-                            component: CommonMainPanel
-                        },
-                        {
-                            path: ':objId/:optType',
-                            name: 'opt',
-                            component: EditDataMainPanel
-                        },
-                        {
-                            path: ':objId/:optType/:id',
-                            name: 'edit',
-                            component: EditDataMainPanel
-                        }
-                    ]
-                }
-            ]
+            path: '/404',
+            name: 'NotFoundPage',
+            component: () => import('../views/NotFoundPage/NotFoundPage')
         }
-
     ]
 });
 
 router.beforeEach((to, from, next) => {
     NProgress.start();
     if (!store.getters.headerMenu.hasLoad) {
-        store.dispatch('getMenu').then(() => { // 根据roles权限生成可访问的路由表
-            // router.addRoutes(store.getters.addRouters); // 动态添加可访问路由表
+        store.dispatch('getMenu').then((menus) => { // 根据roles权限生成可访问的路由表
+            // eslint-disable-next-line no-unused-expressions,no-unused-vars
+            let routes = {
+                path: '/',
+                name: 'home',
+                component: () => import('../views/home/Home'),
+                children: []
+            };
+            let menuKeys = Object.keys(menus);
+            menuKeys.map((key) => {
+                let route = {
+                    path: menus[key].id,
+                    name: menus[key].id,
+                    component: CommonPanel,
+                    meta: {
+                        commonId: menus[key].id
+                    },
+                    children: []
+                };
+                let itemKeys = Object.keys(menus[key].item);
+                itemKeys.map((itemKey) => {
+                    let item = [
+                        {
+                            path: menus[key].item[itemKey].id,
+                            name: menus[key].item[itemKey].id,
+                            meta: {
+                                commonId: menus[key].id,
+                                objId: menus[key].item[itemKey].id
+                            },
+                            component: CommonMainPanel
+                        },
+                        {
+                            path: `${menus[key].item[itemKey].id}/add`,
+                            name: 'opt',
+                            meta: {
+                                commonId: menus[key].id,
+                                objId: menus[key].item[itemKey].id
+                            },
+                            component: EditDataMainPanel
+                        },
+                        {
+                            path: `${menus[key].item[itemKey].id}/edit/:id`,
+                            name: 'edit',
+                            meta: {
+                                commonId: menus[key].id,
+                                objId: menus[key].item[itemKey].id
+                            },
+                            component: EditDataMainPanel
+                        }
+                    ];
+                    route.children.push(...item);
+                });
+                routes.children.push(route);
+            });
+            console.log(routes);
+            router.addRoutes([routes, {
+                path: '*',
+                redirect: '/404'
+            }]);
             NProgress.done();
         });
     }

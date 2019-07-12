@@ -8,7 +8,7 @@
         },
         computed: {
             tableId: function () {
-                return this.$route.params.objId;
+                return this.$route.meta.objId;
             },
             formId: function () {
                 return this.$route.params.id || '';
@@ -111,7 +111,7 @@
                 console.log(this.formData);
             },
             cancel: function () {
-                this.$router.push({ path: `/${this.$route.params.commonId}/${this.$route.params.objId}` });
+                this.$router.push({ path: `/${this.$route.meta.commonId}/${this.$route.meta.objId}` });
             }
         },
         render: function (h) {
