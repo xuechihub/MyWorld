@@ -1,5 +1,9 @@
 package com.my.security.login.po;
 
+import com.my.security.login.validator.NewGroup;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class User {
@@ -7,8 +11,12 @@ public class User {
 
     private String organizationId;
 
+    @NotBlank(message = "用户名不能为空")
+    @Pattern(regexp= "^[\u4e00-\u9fa5_a-zA-Z0-9]{2,32}$",message = "长度为2-32位，只能输入中文，英文字母和数字及特殊字符'_'")
     private String userName;
 
+    @NotBlank(groups= NewGroup.class, message = "密码不能为空")
+    @Pattern(groups= NewGroup.class,regexp="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*_+~(){},./|:\\?\\[\\]''+-]).{6,20}$", message = "长度为6-20位，必须包含数字、小写字母、大写字母、特殊字符")
     private String password;
 
     private Integer userType;

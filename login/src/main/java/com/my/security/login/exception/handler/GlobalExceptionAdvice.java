@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
@@ -20,7 +21,7 @@ import javax.validation.ConstraintViolationException;
  * @author: xuechi
  * @create: 2019-07-18 16:22
  **/
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionAdvice extends BaseGlobalExceptionHandler{
 
     /** 处理400类异常 */

@@ -17,7 +17,13 @@ metaData:
     - id: content
       caption: 内容
       dataType: array
-      arrays: {value: 枚举值, text: 枚举文本}
+      arrays:
+        value:
+          caption: 枚举值
+          dataType: int
+        text:
+          caption: 枚举文本
+          dataType: string
       showable: true
       searchable: false
       nullable: false

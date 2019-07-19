@@ -1,16 +1,15 @@
 package com.my.security.login.controller;
 
 import com.my.security.login.annotations.CommonRequestBody;
-import com.my.security.login.consts.MetaDataConsts;
 import com.my.security.login.mapper.UserMapper;
 import com.my.security.login.po.User;
 import com.my.security.login.po.UserExample;
-import com.my.security.login.utils.YmlUtils;
+import com.my.security.login.validator.NewGroup;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -55,7 +54,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public int saveUser(@RequestBody() User user) {
+    public int saveUser(@RequestBody() @Validated(NewGroup.class) User user) {
         user.setCreateTime(new Date());
         user.setCreateUser("2b17abe1972511e9bdeb8c1645bb7fe9");
         int result = userMapper.insert(user);
@@ -63,7 +62,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public int updateUser(@RequestBody() User user) {
+    public int updateUser(@RequestBody() @Valid User user) {
         int result = userMapper.updateByIdSelective(user);
         return result;
     }

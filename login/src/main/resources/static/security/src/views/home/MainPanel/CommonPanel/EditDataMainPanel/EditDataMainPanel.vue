@@ -105,6 +105,27 @@
             updateCommonData: function (info) {
                 return this.$store.dispatch('updateCommonData', info);
             },
+            addTableRow: function (e, id, arrays) {
+                if (typeof (this.formData[id]) === 'string' || typeof (this.formData[id]) === 'undefined') {
+                    this.formData[id] = [];
+                }
+                let rowData = {
+                    index: this.formData[id].length + 1
+                };
+                let keys = Object.keys(arrays);
+                keys.map((key) => {
+                    if (arrays[key].dataType === 'int') {
+                        rowData[key] = this.formData[id].length + 1;
+                    } else if (arrays[key].dataType === 'int') {
+                        rowData[key] = '';
+                    }
+                });
+
+                this.formData[id].push(rowData);
+            },
+            deleteTableRow: function (e, scope, id) {
+                this.$delete(this.formData[id], scope.$index);
+            },
             onSubmit: function (e) {
                 this.$refs.commonForm.validate((valid) => {
                     if (valid) {
@@ -144,7 +165,6 @@
                 }}
                 ref={'commonForm'}
                 class={'dataForm'}
-                label-width="80px"
                 label-position={'left'}
                 label-width={'120px'}
                 label-suffix={':'}
@@ -152,7 +172,7 @@
                 // inline-message={true}
             >
                 {
-                    this.fields.map((field) => {
+                    this.fields && this.fields.map((field) => {
                         if (field.dataType === 'enum') {
                             return <el-form-item
                                 label={field.caption}
@@ -175,11 +195,79 @@
                                 <el-input v-model={this.formData[field.id]} show-password></el-input>
                             </el-form-item>;
                         } else if (field.dataType === 'array') {
+                            let arrayKeys = Object.keys(field.arrays);
+                            if (this.formData[field.id] === '') {
+                                arrayKeys.map((key) => {
+                                    this.formData[field.id] = [];
+                                });
+                            }
                             return <el-form-item
                                 label={field.caption}
                                 prop={field.id}
                             >
-                                <el-input v-model={this.formData[field.id]}></el-input>
+                                <el-row>
+                                    <el-col>
+                                        <el-table data={this.formData[field.id]}>
+                                            {
+                                                arrayKeys && arrayKeys.map((key) => {
+                                                    return <el-table-column
+                                                        key={key}
+                                                        prop={key}
+                                                        label={field.arrays[key].caption}
+                                                        {...{
+                                                            scopedSlots: {
+                                                                default: scope => {
+                                                                    if (field.arrays[key].dataType === 'string') {
+                                                                        return <el-input
+                                                                            v-model={scope.row[key]}
+                                                                        ></el-input>;
+                                                                    } else if (field.arrays[key].dataType === 'int') {
+                                                                        return <el-input-number
+                                                                            v-model={scope.row[key]}></el-input-number>;
+                                                                    } else {
+                                                                        return null;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        }
+                                                    >
+                                                    </el-table-column>;
+                                                })
+                                            }
+                                            <el-table-column
+                                                align={'center'}
+                                                width={'100px'}
+                                                fixed='right'
+                                                label={'操作列'}
+                                                {...{
+                                                    scopedSlots: {
+                                                        default: scope => {
+                                                            return (<div>
+                                                                <el-button
+                                                                    size="mini"
+                                                                    type="danger"
+                                                                    onClick={e => this.deleteTableRow(e, scope, field.id)}>{'Delete'}
+                                                                </el-button>
+                                                            </div>);
+                                                        }
+                                                    }
+                                                }
+                                                }
+                                            >
+                                            </el-table-column>
+                                        </el-table>
+                                    </el-col>
+                                    <el-col>
+                                        <el-button
+                                            icon="el-icon-plus"
+                                            class="addRowButton"
+                                            onClick={e => this.addTableRow(e, field.id, field.arrays)}
+                                        >
+                                            {'增加'}
+                                        </el-button>
+                                    </el-col>
+                                </el-row>
                             </el-form-item>;
                         } else {
                             return <el-form-item
@@ -202,7 +290,7 @@
 
 <style scoped>
     .dataForm {
-        width: 500px;
+        width: 550px;
     }
 
     .arrayLabel {
@@ -215,5 +303,9 @@
         width: calc(50% - 70px);
         margin-right: 30px;
         text-align: center;
+    }
+
+    .addRowButton {
+        margin-top: 5px;
     }
 </style>
