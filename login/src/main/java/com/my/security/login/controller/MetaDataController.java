@@ -1,5 +1,6 @@
 package com.my.security.login.controller;
 
+import com.my.security.login.annotations.CommonRequestBody;
 import com.my.security.login.consts.MetaDataConsts;
 import com.my.security.login.utils.YmlUtils;
 import org.springframework.boot.configurationprocessor.json.JSONException;
@@ -21,7 +22,8 @@ import java.util.Map;
  **/
 @RestController
 @RequestMapping("/rest/metaData")
-public class MetaDataContorller {
+@CommonRequestBody
+public class MetaDataController {
 
     @RequestMapping("/headerMenu")
     public Object index() {
@@ -32,8 +34,8 @@ public class MetaDataContorller {
     @RequestMapping("/table/{id}")
     public Object metaData(@PathVariable("id") String id, @RequestParam("isEdit") boolean isEdit) throws JSONException {
         HashMap menu = null;
-        if ("user".equals(id)) {
-            menu = YmlUtils.convertToMap(MetaDataConsts.USER_META_DATA_PATH);
+        if ("user".equals(id) || "enum".equals(id)) {
+            menu = YmlUtils.convertToMap(MetaDataConsts.meteDataMap.get(id));
             HashMap metaData = (HashMap) menu.get("metaData");
             ArrayList<HashMap> header = (ArrayList<HashMap>) metaData.get("header");
             for (HashMap item : header) {

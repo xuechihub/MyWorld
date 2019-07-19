@@ -1,5 +1,8 @@
 package com.my.security.login.consts;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @program: securitymanagement
  * @description: 加载页面元数据常量
@@ -9,4 +12,11 @@ package com.my.security.login.consts;
 public class MetaDataConsts {
     public final static String HEADER_MENU_PATH = "config/HeaderMenu.yml";
     public final static String USER_META_DATA_PATH = "config/security/userMetaData.yml";
+    public final static String ENUM_META_DATA_PATH = "config/sysSetting/enumMetaData.yaml";
+    public final static Map<String, String> meteDataMap = new HashMap(){
+        {
+            put("user", USER_META_DATA_PATH);
+            put("enum", ENUM_META_DATA_PATH);
+        }
+    };
 }

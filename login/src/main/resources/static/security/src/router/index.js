@@ -60,7 +60,7 @@ router.beforeEach((to, from, next) => {
                         },
                         {
                             path: `${menus[key].item[itemKey].id}/add`,
-                            name: 'opt',
+                            name: `${menus[key].item[itemKey].id}opt`,
                             meta: {
                                 commonId: menus[key].id,
                                 objId: menus[key].item[itemKey].id
@@ -69,7 +69,7 @@ router.beforeEach((to, from, next) => {
                         },
                         {
                             path: `${menus[key].item[itemKey].id}/edit/:id`,
-                            name: 'edit',
+                            name: `${menus[key].item[itemKey].id}edit`,
                             meta: {
                                 commonId: menus[key].id,
                                 objId: menus[key].item[itemKey].id
@@ -81,7 +81,6 @@ router.beforeEach((to, from, next) => {
                 });
                 routes.children.push(route);
             });
-            console.log(routes);
             router.addRoutes([routes, {
                 path: '*',
                 redirect: '/404'

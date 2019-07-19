@@ -26,8 +26,12 @@ const session = {
                 method: 'GET'
             })
                 .then((response) => {
-                    commit(types.LOAD_MENU_SUCCESS, response);
-                    return Promise.resolve(response);
+                    if (response && response.code === 0) {
+                        commit(types.LOAD_MENU_SUCCESS, response.data);
+                        return Promise.resolve(response.data);
+                    } else {
+                        return Promise.reject(response);
+                    }
                 })
                 .catch((error) => {
                     commit(types.LOAD_MENU_FAILURE, error);

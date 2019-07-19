@@ -1,16 +1,17 @@
 package com.my.security.login.controller;
 
+import com.my.security.login.annotations.CommonRequestBody;
 import com.my.security.login.consts.MetaDataConsts;
 import com.my.security.login.mapper.UserMapper;
 import com.my.security.login.po.User;
 import com.my.security.login.po.UserExample;
 import com.my.security.login.utils.YmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpRequest;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/rest/user")
+@CommonRequestBody
 public class UserController {
 
     @Autowired
@@ -33,22 +35,45 @@ public class UserController {
         query.setLimitStart(0);
         query.setLimitSize(10);
         List<User> users = userMapper.selectByExample(query);
-        HashMap<String, Object> list = new HashMap<String,Object>();
-        HashMap<String, Object> data = new HashMap<String,Object>();
+        HashMap<String, Object> list = new HashMap<String, Object>(1);
+        HashMap<String, Object> data = new HashMap<String, Object>(20);
         list.put("list", data);
-        data.put("total",users.size());
-        data.put("pageSize",10);
-        data.put("currentPage",1);
-        data.put("data",users);
+        data.put("total", users.size());
+        data.put("pageSize", 10);
+        data.put("currentPage", 1);
+        data.put("data", users);
         return list;
     }
 
-    @RequestMapping(value = {"/{id}"},method = RequestMethod.GET)
+    @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public Object getUserById(@PathVariable("id") String id) {
-        User user= userMapper.selectById(id);
-        HashMap<String, Object> data = new HashMap<String,Object>();;
+        User user = userMapper.selectById(id);
+        HashMap<String, Object> data = new HashMap<String, Object>(20);
         user.setPassword(null);
-        data.put("data",user);
+        data.put("data", user);
         return data;
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public int saveUser(@RequestBody() User user) {
+        user.setCreateTime(new Date());
+        user.setCreateUser("2b17abe1972511e9bdeb8c1645bb7fe9");
+        int result = userMapper.insert(user);
+        return result;
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public int updateUser(@RequestBody() User user) {
+        int result = userMapper.updateByIdSelective(user);
+        return result;
+    }
+
+    @RequestMapping(value="/{ids}", method = RequestMethod.DELETE)
+    public String[] deleteUser(@PathVariable("ids") String ids) {
+        String[] idArrays= ids.split(",");
+        for (String id : idArrays) {
+            userMapper.deleteById(id);
+        }
+        return idArrays;
     }
 }

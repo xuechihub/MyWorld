@@ -1,0 +1,28 @@
+metaData:
+  header:
+    - id: name
+      caption: 标题
+      dataType: string
+      showable: true
+      searchable: true
+      nullable: false
+      editable: true
+    - id: code
+      caption: 标识
+      dataType: string
+      showable: true
+      searchable: true
+      nullable: false
+      editable: true
+    - id: content
+      caption: 内容
+      dataType: array
+      arrays: {value: 枚举值, text: 枚举文本}
+      showable: true
+      searchable: false
+      nullable: false
+      editable: true
+  buttonList:
+  - {id: Plus, icon: plus, text: 新建}
+  - {id: Edit, icon: edit, text: 编辑}
+  - {id: Delete, icon: delete, text: 删除}

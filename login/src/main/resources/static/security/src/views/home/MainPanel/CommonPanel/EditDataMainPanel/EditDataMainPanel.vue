@@ -99,16 +99,30 @@
                 });
                 return rules;
             },
+            addCommonData: function (info) {
+                return this.$store.dispatch('addCommonData', info);
+            },
+            updateCommonData: function (info) {
+                return this.$store.dispatch('updateCommonData', info);
+            },
             onSubmit: function (e) {
                 this.$refs.commonForm.validate((valid) => {
                     if (valid) {
-                        alert('submit!');
+                        let info = {
+                            tableId: this.tableId,
+                            formData: this.formData
+                        };
+                        if (this.formId) {
+                            this.updateCommonData(info);
+                        } else {
+                            this.addCommonData(info);
+                        }
+                        this.$router.push({ path: `/${this.$route.meta.commonId}/${this.$route.meta.objId}` });
                     } else {
                         console.log('error submit!!');
                         return false;
                     }
                 });
-                console.log(this.formData);
             },
             cancel: function () {
                 this.$router.push({ path: `/${this.$route.meta.commonId}/${this.$route.meta.objId}` });
@@ -160,6 +174,13 @@
                             >
                                 <el-input v-model={this.formData[field.id]} show-password></el-input>
                             </el-form-item>;
+                        } else if (field.dataType === 'array') {
+                            return <el-form-item
+                                label={field.caption}
+                                prop={field.id}
+                            >
+                                <el-input v-model={this.formData[field.id]}></el-input>
+                            </el-form-item>;
                         } else {
                             return <el-form-item
                                 label={field.caption}
@@ -182,5 +203,17 @@
 <style scoped>
     .dataForm {
         width: 500px;
+    }
+
+    .arrayLabel {
+        width: calc(50% - 70px);
+        margin-right: 30px;
+        text-align: center;
+    }
+
+    .array {
+        width: calc(50% - 70px);
+        margin-right: 30px;
+        text-align: center;
     }
 </style>

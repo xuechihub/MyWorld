@@ -54,7 +54,7 @@
 
         },
         watch: {
-            '$route.params.objId': function (oldTableId, newTableId) {
+            '$route.meta.objId': function (oldTableId, newTableId) {
                 this.getTableMateData();
                 this.getTableData();
             }

@@ -1,6 +1,5 @@
 package com.my.security.login.config;
 
-import com.my.security.login.vo.Test;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.SearchStrategy;
@@ -28,14 +27,4 @@ public class YmlConfig {
         pspc.setProperties(yaml.getObject());
         return pspc;
     }
-
-    @Bean
-    @ConditionalOnMissingBean(search = SearchStrategy.CURRENT)
-    public static Test test(){
-        Test test = new Test();
-        test.setTest("Test");
-        return test;
-    }
-
-
 }

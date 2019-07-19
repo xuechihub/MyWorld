@@ -1,5 +1,6 @@
 package com.my.security.login.vo;
 
+import com.my.security.login.enums.ResultCode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +18,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class PlatformResult implements Serializable {
+public class PlatformResult implements Result {
 
     private static final long serialVersionUID = 874200365941306385L;
 
@@ -27,5 +28,34 @@ public class PlatformResult implements Serializable {
 
     private Object data;
 
+    private static PlatformResult success() {
+        PlatformResult result = new PlatformResult();
+        result.setResultCode(ResultCode.SUCCESS);
+        return result;
+    }
 
+    public static PlatformResult success(Object data){
+        PlatformResult result = new PlatformResult();
+        result.setResultCode(ResultCode.SUCCESS);
+        result.setData(data);
+        return result;
+    }
+
+    public static PlatformResult failure(ResultCode code){
+        PlatformResult result = new PlatformResult();
+        result.setResultCode(code);
+        return result;
+    }
+
+    public static PlatformResult failure(ResultCode code, Object data){
+        PlatformResult result = new PlatformResult();
+        result.setResultCode(code);
+        result.setData(data);
+        return result;
+    }
+
+    private void setResultCode(ResultCode code) {
+        this.code = code.code();
+        this.msg = code.message();
+    }
 }
