@@ -9,9 +9,9 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 /**
- * @program: securitymanagement
+ * @program: MyWorld
  * @description: 配置hibernate Validator为快速失败返回模式
- * @author: xuechi
+ * @author: xue chi
  * @create: 2019-07-19 16:17
  **/
 @Configuration

@@ -1,4 +1,4 @@
-package com.my.world.securitymanegement.website;
+package com.my.world.securitymanagement.user.test;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -7,15 +7,15 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @program: MyWorld
- * @description: 安全管理
- * @author: xuechi
- * @create: 2019-08-08 16:28
+ * @description: springboot测试专用启动类
+ * @author: xue chi
+ * @create: 2019-08-16 08:46
  **/
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.my.world"})
+@ComponentScan(basePackages = {"com.my.world.securitymanagement.user"})
 @MapperScan("com.my.world.*.*.mapper")
-public class SecurityManagementApplication {
+public class TestApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SecurityManagementApplication.class, args);
+        SpringApplication.run(TestApplication.class);
     }
 }

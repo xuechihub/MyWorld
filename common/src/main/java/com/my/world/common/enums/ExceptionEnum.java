@@ -4,9 +4,9 @@ import com.my.world.common.exception.*;
 import org.springframework.http.HttpStatus;
 
 /**
- * @program: securitymanagement
+ * @program: MyWorld
  * @description: 异常、HTTP状态码，默认自定义返回码、映射类
- * @author: xuechi
+ * @author: xue chi
  * @create: 2019-07-18 09:15
  **/
 public enum ExceptionEnum {

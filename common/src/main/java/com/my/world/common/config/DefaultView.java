@@ -13,9 +13,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- * @program: securitymanagement
+ * @program: MyWorld
  * @description: 首页配置转发
- * @author: xuechi
+ * @author: xue chi
  * @create: 2019-07-09 14:38
  **/
 @Configuration

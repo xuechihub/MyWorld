@@ -1,15 +1,14 @@
 package com.my.world.securitymanagement.user.mapper;
 
+import com.my.world.securitymanagement.user.po.Enum;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
 public interface EnumMapper {
-    int deleteByPrimaryKey(String id);
 
-    int insert(Enum record);
+    List<Enum> getList();
 
-    int insertSelective(Enum record);
-
-    Enum selectByPrimaryKey(String id);
-
-    int updateByPrimaryKeySelective(Enum record);
-
-    int updateByPrimaryKey(Enum record);
+    int insert(Enum e);
 }

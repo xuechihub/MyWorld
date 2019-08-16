@@ -37,6 +37,6 @@
     .logo{
         display: inline-block;
         float: left;
-        margin-right: 80px;
+        margin: 0 80px 0 48px;
     }
 </style>

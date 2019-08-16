@@ -13,7 +13,6 @@
     <groupId>com.my.world.securitymanagement</groupId>
     <artifactId>SecurityManagement</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
 
     <modules>
         <module>user</module>

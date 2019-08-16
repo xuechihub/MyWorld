@@ -9,9 +9,9 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 
 /**
- * @program: securitymanagement
+ * @program: MyWorld
  * @description: Yml解析配置类
- * @author: xuechi
+ * @author: xue chi
  * @create: 2019-06-20 19:14
  **/
 @Configuration

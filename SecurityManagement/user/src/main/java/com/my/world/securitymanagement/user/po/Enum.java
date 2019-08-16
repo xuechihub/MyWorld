@@ -1,20 +1,22 @@
 package com.my.world.securitymanagement.user.po;
 
+import com.my.world.securitymanagement.user.vo.EnumMap;
+
+import java.util.List;
+
 public class Enum {
-    private String id;
+    private String code;
 
     private String name;
 
-    private String text;
+    private List<EnumMap> items;
 
-    private Integer value;
-
-    public String getId() {
-        return id;
+    public String getCode() {
+        return code;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
@@ -25,19 +27,21 @@ public class Enum {
         this.name = name;
     }
 
-    public String getText() {
-        return text;
+    public List<EnumMap> getItems() {
+        return items;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setItems(List<EnumMap> items) {
+        this.items = items;
     }
 
-    public Integer getValue() {
-        return value;
-    }
-
-    public void setValue(Integer value) {
-        this.value = value;
+    @Override
+    public String toString() {
+        return "Enum{" +
+                "code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", items=" + items +
+                '}';
     }
 }
+

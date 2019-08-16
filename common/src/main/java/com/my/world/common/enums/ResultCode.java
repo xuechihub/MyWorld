@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @program: securitymanagement
+ * @program: MyWorld
  * @description: 统一返回状态码
- * @author: xuechi
+ * @author: xue chi
  * @create: 2019-07-10 15:42
  **/
 public enum ResultCode {

@@ -7,9 +7,9 @@ import com.my.world.common.vo.Result;
 import java.lang.annotation.*;
 
 /**
- * @program: securitymanagement
+ * @program: MyWorld
  * @description: 接口返回结果增强  会通过拦截器拦截后放入标记，在 ResponseResultHandler 进行结果处理
- * @author: xuechi
+ * @author: xue chi
  * @create: 2019-07-18 16:33
  **/
 @Target({ElementType.TYPE, ElementType.METHOD})

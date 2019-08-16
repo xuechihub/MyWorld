@@ -1,6 +1,7 @@
 package com.my.world.common.config;
 
 import com.my.world.common.annotations.CommonRequestBody;
+import com.my.world.common.utils.JsonUtil;
 import com.my.world.common.vo.DefaultErrorResult;
 import com.my.world.common.vo.PlatformResult;
 import com.my.world.common.vo.Result;
@@ -13,10 +14,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
- * @author zhumaer
- * @desc 接口响应体处理器
- * @since 4/1/2018 3:00 PM
- */
+ * @program: MyWorld
+ * @description: 接口响应体处理器
+ * @author: xue chi
+ * @create: 2019-08-15 19:17
+ **/
 @ControllerAdvice
 public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
 
@@ -44,10 +46,6 @@ public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
                         .data(defaultErrorResult.getErrors())
                         .build();
             }
-//			else if (body instanceof String) {
-//				return JsonUtil.object2Json(PlatformResult.success(body));
-//			}
-
             return PlatformResult.success(body);
         }
 

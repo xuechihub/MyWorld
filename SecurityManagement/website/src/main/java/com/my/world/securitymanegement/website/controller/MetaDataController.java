@@ -16,7 +16,7 @@ import java.util.Iterator;
 /**
  * @program: securitymanagement
  * @description: 元数据控制器
- * @author: xuechi
+ * @author: xue chi
  * @create: 2019-06-25 10:59
  **/
 @RestController
