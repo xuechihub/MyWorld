@@ -1,6 +1,7 @@
 package com.my.world.securitymanagement.user.test.controller;
 
 import com.my.world.securitymanagement.user.test.TestApplication;
+import com.my.world.securitymanagement.user.vo.TableViewResult;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.HashMap;
 
 /**
  * @program: MyWorld
@@ -30,7 +29,12 @@ public class EnumControllerTest {
 
     @Test
     public void getEnumListTest(){
-        HashMap object = restTemplate.getForObject("http://localhost:" + port + "/rest/enum", HashMap.class);
-        Assert.assertNotNull(object.get("list"));
+        try {
+            TableViewResult object = restTemplate.getForObject("http://localhost:" + port + "/rest/enum", TableViewResult.class);
+            Assert.assertNotNull(object);
+        }catch (Exception e){
+            e.printStackTrace();
+            Assert.fail();
+        }
     }
 }

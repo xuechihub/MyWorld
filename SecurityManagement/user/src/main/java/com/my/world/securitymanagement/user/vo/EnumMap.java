@@ -13,6 +13,7 @@ public class EnumMap {
     private Integer value;
 
     public EnumMap() {
+
     }
 
     public EnumMap(String text, Integer value) {

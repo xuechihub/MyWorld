@@ -14,8 +14,8 @@ metaData:
       searchable: true
       nullable: false
       editable: true
-    - id: content
-      caption: 内容
+    - id: items
+      caption: 枚举列表
       dataType: array
       arrays:
         value:

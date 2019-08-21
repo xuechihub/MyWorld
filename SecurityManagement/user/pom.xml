@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+        <!ELEMENT project (parent|modelVersion|groupId|artifactId|packaging|dependencies|build)*>
+        <!ATTLIST project
+                xmlns CDATA #REQUIRED
+                xmlns:xsi CDATA #REQUIRED
+                xsi:schemaLocation CDATA #REQUIRED>
+        <!ELEMENT parent (artifactId|groupId|version|relativePath)*>
+        <!ELEMENT artifactId (#PCDATA)>
+        <!ELEMENT groupId (#PCDATA)>
+        <!ELEMENT version (#PCDATA)>
+        <!ELEMENT relativePath (#PCDATA)>
+        <!ELEMENT modelVersion (#PCDATA)>
+        <!ELEMENT packaging (#PCDATA)>
+        <!ELEMENT dependencies (dependency)*>
+        <!ELEMENT dependency (groupId|artifactId|version)*>
+        <!ELEMENT build (plugins)*>
+        <!ELEMENT plugins (plugin)*>
+        <!ELEMENT plugin (groupId|artifactId|configuration|version|dependencies)*>
+        <!ELEMENT configuration (classifier|configurationFile|verbose|overwrite)*>
+        <!ELEMENT classifier (#PCDATA)>
+        <!ELEMENT configurationFile (#PCDATA)>
+        <!ELEMENT verbose (#PCDATA)>
+        <!ELEMENT overwrite (#PCDATA)>
+        ]>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">

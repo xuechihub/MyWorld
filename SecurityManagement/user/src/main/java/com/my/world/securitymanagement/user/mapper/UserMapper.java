@@ -4,11 +4,16 @@ import com.my.world.securitymanagement.user.po.User;
 import com.my.world.securitymanagement.user.po.UserExample;
 
 import java.util.List;
+
+import com.my.world.securitymanagement.user.vo.RequestQueryCondition;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserMapper {
+
+    List<User> getList(@Param("queryCondition") RequestQueryCondition queryCondition );
+
     long countByExample(UserExample example);
 
     int deleteByExample(UserExample example);

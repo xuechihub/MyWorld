@@ -1,7 +1,6 @@
 package com.my.world.common.config;
 
-import com.my.world.common.annotations.CommonRequestBody;
-import com.my.world.common.utils.JsonUtil;
+import com.my.world.common.annotations.CommonResponseBody;
 import com.my.world.common.vo.DefaultErrorResult;
 import com.my.world.common.vo.PlatformResult;
 import com.my.world.common.vo.Result;
@@ -25,16 +24,16 @@ public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return returnType.hasMethodAnnotation(CommonRequestBody.class) || returnType.getMethod().getDeclaringClass().isAnnotationPresent(CommonRequestBody.class);
+        return returnType.hasMethodAnnotation(CommonResponseBody.class) || returnType.getMethod().getDeclaringClass().isAnnotationPresent(CommonResponseBody.class);
     }
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         Class<? extends Result> requestBodyClazz;
-        if(returnType.hasMethodAnnotation(CommonRequestBody.class)){
-            requestBodyClazz = returnType.getMethodAnnotation(CommonRequestBody.class).value();
+        if(returnType.hasMethodAnnotation(CommonResponseBody.class)){
+            requestBodyClazz = returnType.getMethodAnnotation(CommonResponseBody.class).value();
         }else{
-            requestBodyClazz = returnType.getMethod().getDeclaringClass().getAnnotation(CommonRequestBody.class).value();
+            requestBodyClazz = returnType.getMethod().getDeclaringClass().getAnnotation(CommonResponseBody.class).value();
         }
 
         if (requestBodyClazz.isAssignableFrom(PlatformResult.class)) {

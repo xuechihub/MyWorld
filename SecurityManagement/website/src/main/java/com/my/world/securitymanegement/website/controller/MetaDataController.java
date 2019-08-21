@@ -1,6 +1,6 @@
 package com.my.world.securitymanegement.website.controller;
 
-import com.my.world.common.annotations.CommonRequestBody;
+import com.my.world.common.annotations.CommonResponseBody;
 import com.my.world.common.utils.YmlUtils;
 import com.my.world.securitymanegement.website.consts.MetaDataConsts;
 import org.springframework.boot.configurationprocessor.json.JSONException;
@@ -21,7 +21,7 @@ import java.util.Iterator;
  **/
 @RestController
 @RequestMapping("/rest/metaData")
-@CommonRequestBody
+@CommonResponseBody
 public class MetaDataController {
 
     @RequestMapping("/headerMenu")

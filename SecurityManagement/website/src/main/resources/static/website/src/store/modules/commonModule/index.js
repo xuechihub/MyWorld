@@ -97,13 +97,13 @@ const commonModule = {
                     });
                 });
         },
-        getTableData ({ commit }, tableId) {
-            return service(`rest/${tableId}`, {
+        getTableData ({ commit }, { tableId, parm }) {
+            return service(`rest/${tableId}${parm}`, {
                 method: 'GET'
             })
                 .then((response) => {
                     if (response && response.code === 0) {
-                        let list = response.data.list;
+                        let list = response.data;
                         commit(types.LOAD_TABLE_DATA_SUCCESS, {
                             list,
                             tableId

@@ -75,9 +75,57 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    id, organization_id, user_name, password, user_type, last_visit, last_ip, create_user, 
-    create_time, remark
-  </sql>
+        id, organization_id, user_name, user_type, last_visit, last_ip, create_user,
+        create_time, remark
+    </sql>
+    <sql id="SearchCondition">
+        <foreach collection="queryCondition.searchConditions" item="searchCondition" separator="and">
+            <bind name="_field" value="@com.my.world.common.utils.SqlUtil@getColumn(@com.my.world.securitymanagement.user.po.User@class, searchCondition.field)"/>
+            <choose>
+                <when test="searchCondition.isFuzzy">
+                    <bind name="_like" value="'%' + searchCondition.like + '%'" />
+                    ${_field} like #{_like}
+                </when>
+                <otherwise>
+                    ${_field}=#{searchCondition.like}
+                </otherwise>
+            </choose>
+        </foreach>
+    </sql>
+    <sql id="SortCondition">
+        <foreach collection="queryCondition.sortConditions" item="sortCondition" separator=",">
+            <bind name="_field" value="@com.my.world.common.utils.SqlUtil@getColumn(@com.my.world.securitymanagement.user.po.User@class, sortCondition.field)"/>
+            <choose>
+                <when test="sortCondition.isASC">
+                    ${_field} asc
+                </when>
+                <otherwise>
+                    ${_field} desc
+                </otherwise>
+            </choose>
+        </foreach>
+    </sql>
+<!--    List<User> getList(@Param("queryCondition") RequestQueryCondition queryCondition );-->
+    <select id="getList" parameterType="com.my.world.securitymanagement.user.vo.RequestQueryCondition"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        <if test="queryCondition.searchConditions !=null and queryCondition.searchConditions.size() &gt; 0">
+            <where>
+                <include refid="SearchCondition"/>
+            </where>
+        </if>
+        <if test="queryCondition.sortConditions !=null and queryCondition.sortConditions.size() &gt; 0 ">
+            order by
+            <include refid="SortCondition"/>
+        </if>
+        <if test="queryCondition.pageSize != null and queryCondition.currentPage != null">
+            <bind name="limitStart" value="(queryCondition.currentPage - 1) * queryCondition.pageSize"  />
+            <bind name="limitSize" value="queryCondition.pageSize" />
+            limit #{limitStart},#{limitSize}
+        </if>
+    </select>
     <select id="selectByExample" parameterType="com.my.world.securitymanagement.user.po.UserExample"
             resultMap="BaseResultMap">
         select

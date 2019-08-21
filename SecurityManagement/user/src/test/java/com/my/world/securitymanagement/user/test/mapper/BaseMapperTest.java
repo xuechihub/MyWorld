@@ -2,6 +2,7 @@ package com.my.world.securitymanagement.user.test.mapper;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.*;
+import org.junit.After;
 import org.junit.Before;
 
 import javax.annotation.Resource;
@@ -27,6 +28,7 @@ public class BaseMapperTest {
         sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
    }
 
+   @After
    public void destroy(){
         if(sqlSession!=null){
             sqlSession.close();

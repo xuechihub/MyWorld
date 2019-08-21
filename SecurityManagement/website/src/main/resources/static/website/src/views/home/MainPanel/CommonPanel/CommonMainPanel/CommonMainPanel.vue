@@ -1,4 +1,6 @@
 <script>
+    import { parseJson2Url } from '../../../../../assets/js/utils';
+
     export default {
         name: 'CommonMainPanel',
         data () {
@@ -9,15 +11,14 @@
                 }],
                 value8: '',
                 loading: false,
-                defaultTablePrams: {
+                defaultPagination: {
                     total: 0,
                     pageSize: 10,
                     currentPage: 1
                 },
-                search: {
-                    user: '',
-                    region: ''
-                }
+                search: {},
+                searchConditions: [],
+                sortConditions: {}
             };
         },
         computed: {
@@ -28,6 +29,11 @@
                 let headers = this.tableMateDatas[this.tableId] ? this.tableMateDatas[this.tableId].header || [] : [];
                 // eslint-disable-next-line no-undef
                 return _.filter(headers, { showable: true });
+            },
+            searchField: function () {
+                let headers = this.tableMateDatas[this.tableId] ? this.tableMateDatas[this.tableId].header || [] : [];
+                // eslint-disable-next-line no-undef
+                return _.keyBy(_.filter(headers, { searchable: true }), 'id');
             },
             buttonList: function () {
                 let buttonList = this.tableMateDatas[this.tableId] ? this.tableMateDatas[this.tableId].buttonList || [] : [];
@@ -44,28 +50,49 @@
             tableData: function () {
                 return this.$store.state.commonModule.tablesData[this.tableId] || {};
             },
-            tablePrams: function () {
+            tablePagination: function () {
                 return {
-                    total: this.tableData.total || this.defaultTablePrams.total,
-                    pageSize: this.tableData.pageSize || this.defaultTablePrams.pageSize,
-                    currentPage: this.tableData.currentPage || this.defaultTablePrams.currentPage
+                    total: this.tableData.total || this.defaultPagination.total,
+                    pageSize: this.tableData.pageSize || this.defaultPagination.pageSize,
+                    currentPage: this.tableData.currentPage || this.defaultPagination.currentPage
                 };
             }
 
         },
         watch: {
             '$route.meta.objId': function (oldTableId, newTableId) {
-                this.getTableMateData();
-                this.getTableData();
+                this.init();
             }
         },
         beforeMount () {
-            this.getTableMateData();
-            this.getTableData();
+            this.init();
         },
         methods: {
+            init () {
+                this.sortConditions = {};
+                this.search = {};
+                this.getTableMateData();
+                this.getTableData();
+            },
+            formatter (row, column) {
+                if (Array.isArray(row[column.property])) {
+                    let items = row[column.property];
+                    let cell = [];
+                    items.map((item) => {
+                        cell.push(item.text + ':' + item.value);
+                    });
+                    return cell.join(',');
+                }
+                return row[column.property];
+            },
             getTableData: function () {
-                return this.$store.dispatch('getTableData', this.tableId);
+                let parm = {
+                    currentPage: this.tablePagination.currentPage,
+                    pageSize: this.tablePagination.pageSize,
+                    searchConditions: this.searchConditions,
+                    sortConditions: Object.keys(this.sortConditions).length > 0 ? [this.sortConditions] : []
+                };
+                return this.$store.dispatch('getTableData', { tableId: this.tableId, parm: `?${parseJson2Url(parm)}` });
             },
             getTableMateData: function () {
                 return this.$store.dispatch('getTableMateData', this.tableId);
@@ -78,6 +105,7 @@
             },
             handleEdit: function (e, scope) {
                 if (this.$refs.commonTable.selection.length === 1) {
+                    // eslint-disable-next-line standard/object-curly-even-spacing
                     this.$router.push({ path: `/${this.$route.meta.commonId}/${this.$route.meta.objId}/edit/${this.$refs.commonTable.selection[0].id}` });
                 } else if (scope) {
                     this.$router.push({ path: `/${this.$route.meta.commonId}/${this.$route.meta.objId}/edit/${scope.row.id}` });
@@ -119,7 +147,39 @@
                 ;
             },
             handleSearch: function (e) {
-                ;
+                let searchKeys = Object.keys(this.search);
+                this.searchConditions = [];
+                searchKeys.map((key) => {
+                    this.searchConditions.push({
+                        field: key,
+                        isFuzzy: this.searchField[key].isFuzzy,
+                        like: this.search[key]
+                    });
+                });
+                this.getTableData();
+            },
+            handleSortChange: function ({ column, prop, order }) {
+                if (order) {
+                    this.sortConditions = {
+                        field: prop,
+                        isASC: order === 'ascending'
+                    };
+                } else {
+                    this.sortConditions = {};
+                }
+                this.getTableData();
+            },
+            handlePagination: function (type, num) {
+                if (type === 'pageSize') {
+                    this.tablePagination.pageSize = num;
+                } else if (type === 'currentPage') {
+                    this.tablePagination.currentPage = num;
+                } else if (type === 'prev') {
+                    this.tablePagination.currentPage = this.tablePagination.currentPage - 1;
+                } else if (type === 'next') {
+                    this.tablePagination.currentPage = this.tablePagination.currentPage + 1;
+                }
+                this.getTableData();
             }
         },
         render: function (h) {
@@ -140,7 +200,11 @@
                         }
                     </div>
                     <el-form
-                        inline={true} props={{ model: this.search }} class="demo-form-inline">
+                        ref="search"
+                        inline={true}
+                        props={{ model: this.search }}
+                        class="demo-form-inline"
+                    >
                         {
                             this.searchs.map((searchItem) => {
                                 return <el-form-item label={searchItem.caption}>
@@ -163,9 +227,8 @@
                         ref="commonTable"
                         size="small"
                         loading={this.loading}
-                        data={this.tableData.data}
-                        onSelectionChange="handleSelectionChange"
-                        defaultSort={{ prop: 'date', order: 'descending' }}
+                        data={this.tableData.items}
+                        on-sort-change={this.handleSortChange}
                         height={`calc(100% - ${otherHeight}px)`}
                         min-height={`calc(100% - ${otherHeight}px)`}
                         border
@@ -184,8 +247,9 @@
                                     key={header.id}
                                     prop={header.id}
                                     label={header.caption}
+                                    formatter={this.formatter}
                                     show-overflow-tooltip
-                                    sortable
+                                    sortable={header.sortable ? 'custom' : false}
                                     max-width="100px"
                                     min-width="100px"
                                 >
@@ -220,11 +284,16 @@
                         </el-table-column>
                     </el-table>
                     <el-pagination
+                        ref="pagination"
                         layout={'total, sizes, prev, pager, next, jumper'}
                         page-sizes={[10, 20, 30, 40, 50, 100, 200]}
-                        page-size={this.tablePrams.pageSize}
-                        total={this.tablePrams.total}
-                        current-page={this.tablePrams.currentPage}
+                        page-size={this.tablePagination.pageSize}
+                        total={this.tablePagination.total}
+                        current-page={this.tablePagination.currentPage}
+                        on-size-change={(n) => this.handlePagination('pageSize', n)}
+                        on-current-change={(n) => this.handlePagination('currentPage', n)}
+                        on-prev-click={(n) => this.handlePagination('prev', n)}
+                        on-next-click={(n) => this.handlePagination('next', n)}
                     >
                     </el-pagination>
                 </div>
