@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @create: 2019-08-08 16:28
  **/
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.my.world"})
+@ComponentScan(basePackages = {"com.my.world.securitymanegement"})
 @MapperScan("com.my.world.*.*.mapper")
 public class SecurityManagementApplication {
     public static void main(String[] args) {

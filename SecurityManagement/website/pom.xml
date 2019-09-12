@@ -14,13 +14,13 @@
     <artifactId>website</artifactId>
     <packaging>jar</packaging>
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>com.my.world.common</groupId>-->
-            <!--<artifactId>common</artifactId>-->
-        <!--</dependency>-->
         <dependency>
-            <groupId>com.my.world.securitymanagement.user</groupId>
-            <artifactId>user</artifactId>
+            <groupId>com.my.world.common</groupId>
+            <artifactId>my-common-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.my.world.securitymanagement</groupId>
+            <artifactId>security-management-api</artifactId>
         </dependency>
     </dependencies>
 

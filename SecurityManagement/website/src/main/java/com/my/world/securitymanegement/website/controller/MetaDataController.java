@@ -1,9 +1,11 @@
 package com.my.world.securitymanegement.website.controller;
 
-import com.my.world.common.annotations.CommonResponseBody;
-import com.my.world.common.utils.YmlUtils;
+import com.my.world.common.rest.annotations.DefaultResultResponseBody;
+import com.my.world.common.rest.utils.YmlUtils;
 import com.my.world.securitymanegement.website.consts.MetaDataConsts;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,9 +23,11 @@ import java.util.Iterator;
  **/
 @RestController
 @RequestMapping("/rest/metaData")
-@CommonResponseBody
+@DefaultResultResponseBody
 public class MetaDataController {
 
+    @Autowired
+    Environment Environment;
     @RequestMapping("/headerMenu")
     public Object index() {
         Object menu = YmlUtils.convertToMap(MetaDataConsts.HEADER_MENU_PATH);

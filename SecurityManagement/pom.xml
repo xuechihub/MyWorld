@@ -15,7 +15,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>user</module>
+        <module>security-management-api</module>
         <module>website</module>
     </modules>
 
